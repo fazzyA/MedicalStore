@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fe-dept1-config
+data:
+  REACT_APP_DBB: http://20.43.147.124:5002/,
+  REACT_APP_DB_USER: http://20.198.154.19:5000
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: fe-dept1
+  name: fe-dept1-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fe-dept1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: fe-dept1
+    spec:
+      containers:
+      - image: fazzyaziz/finosys-fe-dept1:latest
+        imagePullPolicy: Always
+        name: fe-dept1
+        envFrom:
+        - configMapRef:
+            name: fe-dept1-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fe-dept1
+spec:
+  selector:
+    app: fe-dept1
+  ports:
+  - port: 80
+    targetPort: 80
+  type: LoadBalancer
+

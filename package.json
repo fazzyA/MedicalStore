@@ -1,0 +1,24 @@
+{
+  "name": "proshop",
+  "version": "1.0.0",
+  "description": "Medical Store",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node products/server",
+    "server": "nodemon products/server",
+    "server2": "nodemon users/server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server --prefix products\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "author": "Finosys Medical Store",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "nodemon": "^2.0.4"
+  }
+}
